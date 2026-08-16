@@ -4,6 +4,9 @@ layout: home
 hero:
   name: "Paintball Start Timer"
   tagline: Trigger the game start with a simple press of the RF remote
+  image:
+    src: /buzzer-icon.png
+    alt: Paintball Start Timer
   actions:
     - theme: brand
       text: Get Started

@@ -1,11 +1,16 @@
 import { defineConfig } from 'vitepress'
 import { withMermaid } from 'vitepress-plugin-mermaid'
 
+// Projekt-Site auf GitHub Pages liegt unter /<repo-name>/
+const base = '/paintball-game-start-buzzer/'
+
 export default withMermaid(defineConfig({
   title: 'Paintball Start Timer',
   lang: 'de-DE',
-  // Projekt-Site auf GitHub Pages liegt unter /<repo-name>/
-  base: '/paintball-game-start-buzzer/',
+  base,
+  // head-Links bekommen den base-Pfad nicht automatisch vorangestellt
+  // (anders als z.B. das hero.image in index.md), daher hier manuell.
+  head: [['link', { rel: 'icon', href: `${base}buzzer-icon.png`, type: 'image/png' }]],
 
   locales: {
     root: {

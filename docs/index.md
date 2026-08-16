@@ -4,6 +4,9 @@ layout: home
 hero:
   name: "Paintball Start Timer"
   tagline: Spielstart ganz einfach per Funkfernbedienung auslösen
+  image:
+    src: /buzzer-icon.png
+    alt: Paintball Start Timer
   actions:
     - theme: brand
       text: Erste Schritte
