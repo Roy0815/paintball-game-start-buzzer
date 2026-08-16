@@ -1,0 +1,91 @@
+name: Docs Deploy
+
+# Deploys to GitHub Pages. Only builds the docs itself - the firmware
+# binaries for the browser flasher (docs/flash.md) are fetched by this
+# workflow as ready-made assets from the "latest" release that
+# build-firmware.yml publishes (see there). This avoids CORS issues when
+# fetching from the browser (release assets have no
+# Access-Control-Allow-Origin, whereas same-origin as the docs page does).
+#
+# Two triggers:
+#   - push to docs/**: direct redeploy on pure docs changes.
+#   - workflow_run after "Build Firmware Release": redeploy only AFTER the
+#     new release has actually been published, so the browser flasher
+#     never shows a stale release of a still-running firmware build.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - '.github/workflows/docs-deploy.yml'
+  workflow_run:
+    workflows: ['Build Firmware Release']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch firmware release assets for the browser flasher
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p docs/public/firmware
+          if gh release view latest --json tagName -q .tagName >/dev/null 2>&1; then
+            gh release download latest --dir docs/public/firmware --clobber \
+              --pattern 'bootloader.bin' \
+              --pattern 'partitions.bin' \
+              --pattern 'firmware.bin' \
+              --pattern 'littlefs.bin' \
+              --pattern 'manifest-erase.json' \
+              --pattern 'manifest-reset.json' \
+              --pattern 'manifest-update.json'
+          else
+            echo "::warning::No 'latest' release found (build-firmware.yml hasn't run yet) - the web flasher page will then have no firmware to offer."
+          fi
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+
+      - name: Install docs dependencies
+        working-directory: docs
+        run: npm ci
+
+      - name: Build docs
+        working-directory: docs
+        run: npm run docs:build
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

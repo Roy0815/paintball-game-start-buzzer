@@ -1,0 +1,78 @@
+name: Build Firmware Release
+
+# Builds firmware + LittleFS image from source and publishes them
+# as assets of a rolling "latest" release - independent of the docs.
+# Serves two purposes:
+#   1. Manual flashing via esptool, without installing PlatformIO
+#      (see docs/flash.md).
+#   2. Source for the browser flasher: docs-deploy.yml fetches the
+#      assets from here instead of rebuilding them itself (avoids CORS
+#      issues when fetching from the browser, see docs/flash.md).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'src/**'
+      - 'data/**'
+      - 'platformio.ini'
+      - 'partitions_custom.csv'
+      - 'scripts/generate_flasher_manifests.py'
+      - '.github/workflows/build-firmware.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache PlatformIO packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.platformio
+          key: pio-${{ runner.os }}-${{ hashFiles('platformio.ini', 'partitions_custom.csv') }}
+
+      - name: Install PlatformIO
+        run: pip install platformio
+
+      - name: Build firmware + filesystem image
+        run: |
+          pio run
+          pio run -t buildfs
+
+      - name: Assemble release assets
+        run: |
+          mkdir -p release
+          cp .pio/build/esp32dev/bootloader.bin release/
+          cp .pio/build/esp32dev/partitions.bin release/
+          cp .pio/build/esp32dev/firmware.bin release/
+          cp .pio/build/esp32dev/littlefs.bin release/
+          python3 scripts/generate_flasher_manifests.py \
+            --out release \
+            --version "$(git rev-parse --short HEAD)"
+
+      # Rolling release instead of versioned tags, because it gets
+      # republished on every push to main, not just on version releases.
+      - name: Publish "latest" release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest --yes --cleanup-tag || true
+          gh release create latest \
+            --title "Latest build ($(git rev-parse --short HEAD))" \
+            --notes "Automatically built from $(git rev-parse HEAD). See docs/flash.md for flashing instructions (browser or esptool)." \
+            release/bootloader.bin \
+            release/partitions.bin \
+            release/firmware.bin \
+            release/littlefs.bin \
+            release/manifest-erase.json \
+            release/manifest-reset.json \
+            release/manifest-update.json

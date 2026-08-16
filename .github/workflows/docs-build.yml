@@ -1,0 +1,75 @@
+name: Docs Build
+
+# Pure validation: builds firmware + LittleFS image + VitePress docs, without
+# deploying anything. Runs on pull requests so breakage is caught before
+# merging to main. Doesn't need Pages permissions for that - only the
+# separate "Docs Deploy" workflow (docs-deploy.yml) has those, rebuilding
+# and deploying independently on a push to main.
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'docs/**'
+      - 'src/**'
+      - 'data/**'
+      - 'platformio.ini'
+      - 'partitions_custom.csv'
+      - 'scripts/generate_flasher_manifests.py'
+      - '.github/workflows/docs-build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    # Caps how long PR-controlled code (fork PRs!) may run here - without
+    # this, a malicious PR could block the runner up to the GitHub default
+    # maximum (6h), e.g. for crypto mining.
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Cache PlatformIO packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.platformio
+          key: pio-${{ runner.os }}-${{ hashFiles('platformio.ini', 'partitions_custom.csv') }}
+
+      - name: Install PlatformIO
+        run: pip install platformio
+
+      - name: Build firmware + filesystem image
+        run: |
+          pio run
+          pio run -t buildfs
+
+      - name: Assemble web-flasher assets
+        run: |
+          mkdir -p docs/public/firmware
+          cp .pio/build/esp32dev/bootloader.bin docs/public/firmware/
+          cp .pio/build/esp32dev/partitions.bin docs/public/firmware/
+          cp .pio/build/esp32dev/firmware.bin docs/public/firmware/
+          cp .pio/build/esp32dev/littlefs.bin docs/public/firmware/
+          python3 scripts/generate_flasher_manifests.py \
+            --out docs/public/firmware \
+            --version "$(git rev-parse --short HEAD)"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: docs/package-lock.json
+
+      - name: Install docs dependencies
+        working-directory: docs
+        run: npm ci
+
+      - name: Build docs
+        working-directory: docs
+        run: npm run docs:build

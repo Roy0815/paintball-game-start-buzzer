@@ -1,0 +1,11 @@
+{
+  "name": "paintball-game-start-buzzer",
+  "version": "1.0.0",
+  "private": true,
+  "license": "GPL-3.0-only",
+  "description": "ESP32 start buzzer: RF relay trigger for MP3 playback over a Bluetooth speaker",
+  "scripts": {
+    "docs:dev": "npm --prefix docs run docs:dev",
+    "docs:build": "npm --prefix docs run docs:build"
+  }
+}
