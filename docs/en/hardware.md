@@ -15,19 +15,19 @@
 
 ### Shopping List
 
-| Part | Qty | Price | Note | Link |
-|---|---|---|---|---|
-| ESP32-WROOM-32 DevKit (e.g. ELEGOO, 4 MB flash) | 1 | approx. €15 | ASIN B0D8T7LZF2 (price and link are for a 2-pack) | *(TBD)* |
-| RF relay module | 1 | approx. €10 | Must run on **5V**. Many relay modules are built for a 12V coil. Check explicitly for 5V compatibility when buying. | *(TBD)* |
-| Jumper wires, female-to-male | 4 | approx. €7 | For V+/V-/COM/NO between the relay module and the ESP32, see wiring below. Usually noticeably cheaper at a local electronics store than as an online set. | *(TBD)* |
+| Part                                            | Qty | Price       | Note                                                                                                                                                      | Link    |
+| ----------------------------------------------- | --- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| ESP32-WROOM-32 DevKit (e.g. ELEGOO, 4 MB flash) | 1   | approx. €15 | ASIN B0D8T7LZF2 (price and link are for a 2-pack)                                                                                                         | _(TBD)_ |
+| RF relay module                                 | 1   | approx. €10 | Must run on **5V**. Many relay modules are built for a 12V coil. Check explicitly for 5V compatibility when buying.                                       | _(TBD)_ |
+| Jumper wires, female-to-male                    | 4   | approx. €7  | For V+/V-/COM/NO between the relay module and the ESP32, see wiring below. Usually noticeably cheaper at a local electronics store than as an online set. | _(TBD)_ |
 
 ### Probably Already Have
 
-| Part | Note |
-|---|---|
-| Power bank, 5V output | Powers the ESP32 (VIN) for mobile/battery-powered operation, and through it, the relay module too (see [Power Supply](#power-supply)) |
-| USB-C cable | For flashing, and for power from the power bank |
-| Bluetooth speaker, A2DP-capable | Classic Bluetooth, not BLE |
+| Part                            | Note                                                                                                                                  |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
+| Power bank, 5V output           | Powers the ESP32 (VIN) for mobile/battery-powered operation, and through it, the relay module too (see [Power Supply](#power-supply)) |
+| USB-C cable                     | For flashing, and for power from the power bank                                                                                       |
+| Bluetooth speaker, A2DP-capable | Classic Bluetooth, not BLE                                                                                                            |
 
 ### Case
 
@@ -74,23 +74,22 @@ internal `INPUT_PULLUP`) low for the duration of the button press. The supply li
 (V+/V-) are a completely separate circuit powering the relay module
 itself.
 
-> **Placeholder:** still missing a photo of the actual build, or a Fritzing
-> diagram for the specific relay module used. Both the button contact
-> labels (COM/NO/NC) and the supply pin labels (V+/V- vs. VCC/GND) vary by
-> manufacturer even though the function is the same in each case. Fill in
-> once a module is settled on.
+<div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+  <img src="/cable-connections-raw.jpg" alt="Wiring, outside the case" style="flex: 1 1 300px; max-width: 100%;">
+  <img src="/assembled-in-box.jpg" alt="Assembled in the case" style="flex: 1 1 300px; max-width: 100%;">
+</div>
 
 <details>
 <summary><strong>Advanced: Pin Table</strong></summary>
 
-| ESP32 Pin | Component | Function |
-|---|---|---|
-| `GPIO4` | RF relay module, **NO** contact | Signal input, button-press trigger, `INPUT_PULLUP`, active low |
-| `GND` | RF relay module, **COM** contact | reference potential for the button contact |
-| `VIN` (5 V) | RF relay module, **V+** (supply) | power supply for the relay module |
-| `GND` | RF relay module, **V-** (supply) | common ground, required, see below |
-| `GPIO0` | BOOT button (onboard) | no external component, press within 5s **after** boot to enter setup mode (see [Development](/en/development#getting-back-into-setup-mode)), **don't** hold during reset/EN |
-| `GPIO2` | Onboard LED (blue) | no external component, blinks during the 5s window, then stays solid on for the whole AP setup session, off during Bluetooth operation. Verified on the ELEGOO board (ASIN B0D8T7LZF2); the separate red LED is hardwired to the power supply and not controllable |
+| ESP32 Pin   | Component                        | Function                                                                                                                                                                                                                                                           |
+| ----------- | -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `GPIO4`     | RF relay module, **NO** contact  | Signal input, button-press trigger, `INPUT_PULLUP`, active low                                                                                                                                                                                                     |
+| `GND`       | RF relay module, **COM** contact | reference potential for the button contact                                                                                                                                                                                                                         |
+| `VIN` (5 V) | RF relay module, **V+** (supply) | power supply for the relay module                                                                                                                                                                                                                                  |
+| `GND`       | RF relay module, **V-** (supply) | common ground, required, see below                                                                                                                                                                                                                                 |
+| `GPIO0`     | BOOT button (onboard)            | no external component, press within 5s **after** boot to enter setup mode (see [Development](/en/development#getting-back-into-setup-mode)), **don't** hold during reset/EN                                                                                        |
+| `GPIO2`     | Onboard LED (blue)               | no external component, blinks during the 5s window, then stays solid on for the whole AP setup session, off during Bluetooth operation. Verified on the ELEGOO board (ASIN B0D8T7LZF2); the separate red LED is hardwired to the power supply and not controllable |
 
 </details>
 
