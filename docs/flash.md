@@ -69,9 +69,14 @@ pip install esptool
 Je nach System heißen die Befehle stattdessen `pip3`/`python3` statt
 `pip`/`python` (v.a. unter macOS und Linux).
 
-Die `.bin`-Dateien liegen als Assets am
+Von den Assets des
 [`latest`-Release](https://github.com/Roy0815/paintball-game-start-buzzer/releases/tag/latest)
-zum Download bereit. In den Befehlen unten muss `<PORT>` durch den
+werden folgende Dateien heruntergeladen und in denselben Ordner gelegt:
+- `bootloader.bin`, `partitions.bin`, `firmware.bin` – für alle drei Varianten
+- `littlefs.bin` – zusätzlich nur für "Komplette Neuinstallation" und
+  "Firmware Reset" (bei "Firmware-Update" nicht nötig)
+
+In den Befehlen unten muss `<PORT>` durch den
 tatsächlichen seriellen Port des ESP32 ersetzt werden (z.B. `COM5` unter
 Windows, `/dev/ttyUSB0` unter Linux, `/dev/cu.usbserial-0001` unter macOS).
 Wie man den findet, hängt vom Betriebssystem ab:
@@ -108,11 +113,6 @@ starten). Unter WSL zusätzlich
 [usbipd-win einrichten](/entwicklung#usb-passthrough-einrichten).
 
 ### Flash-Befehle
-
-Bewusst als Einzeiler ohne Zeilenumbrüche. Ein abschließendes `\` für
-Zeilenfortsetzung funktioniert nur in bash/zsh (macOS-Terminal, Linux, Git
-Bash, WSL), nicht in der Windows-`cmd`/PowerShell. So lassen sich die
-Befehle unter jedem Betriebssystem 1:1 kopieren.
 
 Komplette Neuinstallation (löscht auch NVS/Konfiguration):
 
