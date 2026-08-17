@@ -12,12 +12,12 @@ on:
   push:
     branches: [main]
     paths:
-      - 'src/**'
-      - 'data/**'
-      - 'platformio.ini'
-      - 'partitions_custom.csv'
-      - 'scripts/generate_flasher_manifests.py'
-      - '.github/workflows/build-firmware.yml'
+      - "src/**"
+      - "data/**"
+      - "platformio.ini"
+      - "partitions_custom.csv"
+      - "scripts/generate_flasher_manifests.py"
+      - ".github/workflows/build-firmware.yml"
   workflow_dispatch:
 
 permissions:
@@ -32,7 +32,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          python-version: "3.12"
 
       - name: Cache PlatformIO packages
         uses: actions/cache@v4
@@ -68,7 +68,7 @@ jobs:
           gh release delete latest --yes --cleanup-tag || true
           gh release create latest \
             --title "Latest build ($(git rev-parse --short HEAD))" \
-            --notes "Automatically built from $(git rev-parse HEAD). See docs/flash.md for flashing instructions (browser or esptool)." \
+            --notes "Automatically built from $(git rev-parse HEAD). See https://roy0815.github.io/paintball-game-start-buzzer/en/flash.html for browser flashing or https://roy0815.github.io/paintball-game-start-buzzer/en/flash.html#flashing-manually-with-esptool-advanced for manual flashing instructions." \
             release/bootloader.bin \
             release/partitions.bin \
             release/firmware.bin \
