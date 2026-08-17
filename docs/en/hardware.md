@@ -15,11 +15,13 @@
 
 ### Shopping List
 
-| Part                                            | Qty | Price       | Note                                                                                                                                                      | Link                                          |
-| ----------------------------------------------- | --- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
-| ESP32-WROOM-32 DevKit (e.g. ELEGOO, 4 MB flash) | 1   | approx. €15 | ASIN B0D8T7LZF2 (price and link are for a 2-pack)                                                                                                         | [Amazon](https://www.amazon.de/dp/B0D8T7LZF2) |
-| RF relay module                                 | 1   | approx. €10 | Must run on **5V**. Many relay modules are built for a 12V coil. Check explicitly for 5V compatibility when buying.                                       | [Amazon](https://www.amazon.de/dp/B0DJX32J75) |
-| Jumper wires, female-to-male                    | 4   | approx. €7  | For V+/V-/COM/NO between the relay module and the ESP32, see wiring below. Usually noticeably cheaper at a local electronics store than as an online set. | [Amazon](https://www.amazon.de/dp/B01EV70C78) |
+| Part                                            | Qty | Price       | Note                                                                                                                                                      | Link                                                                     |
+| ----------------------------------------------- | --- | ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| ESP32-WROOM-32 DevKit (e.g. ELEGOO, 4 MB flash) | 1   | approx. €15 | ASIN B0D8T7LZF2 (price and link are for a 2-pack)                                                                                                         | [Amazon](https://amzn.to/4wRAqzT) \*                                     |
+| RF relay module                                 | 1   | approx. €10 | Must run on **5V**. Many relay modules are built for a 12V coil. Check explicitly for 5V compatibility when buying.                                       | [Amazon](https://www.amazon.de/dp/B0DJX32J75?tag=paintball-buzzer-21) \* |
+| Jumper wires, female-to-male                    | 4   | approx. €7  | For V+/V-/COM/NO between the relay module and the ESP32, see wiring below. Usually noticeably cheaper at a local electronics store than as an online set. | [Amazon](https://amzn.to/4xPisik) \*                                     |
+
+> \* Affiliate Links. The items don't increase in price for you, but generate a few cents for me. The products can be bought on any platform, I just use amazon for convenience.
 
 ### Probably Already Have
 

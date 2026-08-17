@@ -16,11 +16,13 @@
 
 ### Einkaufsliste
 
-| Bauteil                                         | Menge | Preis    | Hinweis                                                                                                                                          | Link                                          |
-| ----------------------------------------------- | ----- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------------------- |
-| ESP32-WROOM-32 DevKit (z.B. ELEGOO, 4 MB Flash) | 1     | ca. 15 € | ASIN B0D8T7LZF2 (Preis und Link beziehen sich auf ein Doppelpack)                                                                                | [Amazon](https://www.amazon.de/dp/B0D8T7LZF2) |
-| RF-Relais-Modul                                 | 1     | ca. 10 € | Muss mit **5 V** betrieben werden können. Viele Relais-Module sind für 12V-Spulen ausgelegt. Beim Kauf explizit auf 5V-Kompatibilität achten.    | [Amazon](https://www.amazon.de/dp/B0DJX32J75) |
-| Jumper-Kabel, Female-to-Male                    | 4     | ca. 7 €  | Für V+/V-/COM/NO zwischen Relais-Modul und ESP32, siehe Verkabelung unten. Im Elektronik-Einzelhandel meist deutlich billiger als im Online-Set. | [Amazon](https://www.amazon.de/dp/B01EV70C78) |
+| Bauteil                                         | Menge | Preis    | Hinweis                                                                                                                                          | Link                                                                     |
+| ----------------------------------------------- | ----- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| ESP32-WROOM-32 DevKit (z.B. ELEGOO, 4 MB Flash) | 1     | ca. 15 € | ASIN B0D8T7LZF2 (Preis und Link beziehen sich auf ein Doppelpack)                                                                                | [Amazon](https://amzn.to/4wRAqzT) \*                                     |
+| RF-Relais-Modul                                 | 1     | ca. 10 € | Muss mit **5 V** betrieben werden können. Viele Relais-Module sind für 12V-Spulen ausgelegt. Beim Kauf explizit auf 5V-Kompatibilität achten.    | [Amazon](https://www.amazon.de/dp/B0DJX32J75?tag=paintball-buzzer-21) \* |
+| Jumper-Kabel, Female-to-Male                    | 4     | ca. 7 €  | Für V+/V-/COM/NO zwischen Relais-Modul und ESP32, siehe Verkabelung unten. Im Elektronik-Einzelhandel meist deutlich billiger als im Online-Set. | [Amazon](https://amzn.to/4xPisik) \*                                     |
+
+> \* Affiliate Links. Diese verursachen keine Mehrkosten, generieren aber ein paar Cent Provision. Die Produkte können auch auf jeder anderen Plattform erworben werden, ich persönlich nutze Amazon aus Bequemlichkeit.
 
 ### Vermutlich bereits vorhanden
 
