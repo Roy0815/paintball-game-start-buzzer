@@ -21,15 +21,15 @@
 | RF relay module                                 | 1   | approx. €10 | Must run on **5V**. Many relay modules are built for a 12V coil. Check explicitly for 5V compatibility when buying.                                       | [Amazon](https://www.amazon.de/dp/B0DJX32J75?tag=paintball-buzzer-21) \* |
 | Jumper wires, female-to-male                    | 4   | approx. €7  | For V+/V-/COM/NO between the relay module and the ESP32, see wiring below. Usually noticeably cheaper at a local electronics store than as an online set. | [Amazon](https://amzn.to/4xPisik) \*                                     |
 
-> \* Affiliate Links. The items don't increase in price for you, but generate a few cents for me. The products can be bought on any platform, I just use amazon for convenience.
-
 ### Probably Already Have
 
-| Part                            | Note                                                                                                                                  |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| Power bank, 5V output           | Powers the ESP32 (VIN) for mobile/battery-powered operation, and through it, the relay module too (see [Power Supply](#power-supply)) |
-| USB-C cable                     | For flashing, and for power from the power bank                                                                                       |
-| Bluetooth speaker, A2DP-capable | Classic Bluetooth, not BLE                                                                                                            |
+Most people already have those items. If not most generic ones will do. Attached links are only examples but you can choose whatever you like.
+
+| Part                            | Note                                                                                                                                  | Link                                 |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| Power bank, 5V output           | Powers the ESP32 (VIN) for mobile/battery-powered operation, and through it, the relay module too (see [Power Supply](#power-supply)) | [Amazon](https://amzn.to/4gb2M1y) \* |
+| USB-C cable                     | For flashing, and for power from the power bank                                                                                       | [Amazon](https://amzn.to/45wU6Oe) \* |
+| Bluetooth speaker, A2DP-capable | Classic Bluetooth, not BLE                                                                                                            | [Amazon](https://amzn.to/4g0vNOG) \* |
 
 ### Case
 
@@ -137,3 +137,7 @@ USB or the power bank. From the project's Pi Zero W backstory (see
 known to cause hard-to-diagnose glitches. Especially while an active
 Bluetooth connection is running, make sure the supply is adequately
 rated.
+
+---
+
+> \* Affiliate Links. The items don't increase in price for you, but generate a few cents for me. The products can be bought on any platform, I just use amazon for convenience.

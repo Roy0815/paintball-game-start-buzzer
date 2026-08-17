@@ -22,15 +22,15 @@
 | RF-Relais-Modul                                 | 1     | ca. 10 € | Muss mit **5 V** betrieben werden können. Viele Relais-Module sind für 12V-Spulen ausgelegt. Beim Kauf explizit auf 5V-Kompatibilität achten.    | [Amazon](https://www.amazon.de/dp/B0DJX32J75?tag=paintball-buzzer-21) \* |
 | Jumper-Kabel, Female-to-Male                    | 4     | ca. 7 €  | Für V+/V-/COM/NO zwischen Relais-Modul und ESP32, siehe Verkabelung unten. Im Elektronik-Einzelhandel meist deutlich billiger als im Online-Set. | [Amazon](https://amzn.to/4xPisik) \*                                     |
 
-> \* Affiliate Links. Diese verursachen keine Mehrkosten, generieren aber ein paar Cent Provision. Die Produkte können auch auf jeder anderen Plattform erworben werden, ich persönlich nutze Amazon aus Bequemlichkeit.
-
 ### Vermutlich bereits vorhanden
 
-| Bauteil                            | Hinweis                                                                                                                                     |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
-| Powerbank, 5V-Ausgang              | Versorgt den ESP32 (VIN) für mobilen/batteriebetriebenen Betrieb, darüber auch das Relais-Modul (siehe [Stromversorgung](#stromversorgung)) |
-| USB-C-Kabel                        | Zum Flashen sowie zur Stromversorgung ab Powerbank                                                                                          |
-| Bluetooth-Lautsprecher, A2DP-fähig | Klassisches Bluetooth, kein BLE                                                                                                             |
+Hier reichen generische Teile, die die Meisten vermutlich bereits besitzen. Es können fast alle Geräte verwendet werden, die Links sind nur Beispiele.
+
+| Bauteil                            | Hinweis                                                                                                                                     | Link                                 |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| Powerbank, 5V-Ausgang              | Versorgt den ESP32 (VIN) für mobilen/batteriebetriebenen Betrieb, darüber auch das Relais-Modul (siehe [Stromversorgung](#stromversorgung)) | [Amazon](https://amzn.to/4gb2M1y) \* |
+| USB-C-Kabel                        | Zum Flashen sowie zur Stromversorgung ab Powerbank                                                                                          | [Amazon](https://amzn.to/45wU6Oe) \* |
+| Bluetooth-Lautsprecher, A2DP-fähig | Klassisches Bluetooth, kein BLE                                                                                                             | [Amazon](https://amzn.to/4g0vNOG) \* |
 
 ### Case
 
@@ -141,3 +141,7 @@ Powerbank. Aus der Pi-Zero-W-Vorgeschichte des Projekts (siehe
 schwache/instabile Stromversorgung zu schwer diagnostizierbaren Aussetzern
 führen kann. Insbesondere während aktiver Bluetooth-Verbindungen auf
 ausreichend belastbare Versorgung achten.
+
+---
+
+> \* Affiliate Links. Diese verursachen keine Mehrkosten, generieren aber ein paar Cent Provision. Die Produkte können auch auf jeder anderen Plattform erworben werden, ich persönlich nutze Amazon aus Bequemlichkeit.
