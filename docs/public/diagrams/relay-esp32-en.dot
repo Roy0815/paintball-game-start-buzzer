@@ -1,0 +1,31 @@
+digraph wiring {
+  rankdir=LR;
+  bgcolor="transparent";
+  node [shape=plaintext, fontname="Helvetica"];
+  edge [fontname="Helvetica", fontsize=10, color="{{EDGE}}", fontcolor="{{TEXT}}", penwidth=1.5];
+
+  relay [fontcolor="{{TEXT}}", label=<
+    <table border="1" cellborder="1" cellspacing="0" cellpadding="6" color="{{BORDER}}">
+      <tr><td colspan="2" bgcolor="{{HEADER_BG}}"><font color="{{HEADER_FG}}"><b>RF Relay</b></font></td></tr>
+      <tr><td align="left">v_plus</td><td port="v_plus" align="left">V+</td></tr>
+      <tr><td align="left">v_minus</td><td port="v_minus" align="left">V-</td></tr>
+      <tr><td align="left">com</td><td port="com" align="left">COM</td></tr>
+      <tr><td align="left">no</td><td port="no" align="left">NO</td></tr>
+    </table>
+  >];
+
+  esp32 [fontcolor="{{TEXT}}", label=<
+    <table border="1" cellborder="1" cellspacing="0" cellpadding="6" color="{{BORDER}}">
+      <tr><td colspan="2" bgcolor="{{HEADER_BG}}"><font color="{{HEADER_FG}}"><b>ESP32-WROOM-32</b></font></td></tr>
+      <tr><td port="vin" align="left">vin</td><td align="left">VIN</td></tr>
+      <tr><td port="gnd1" align="left">gnd1</td><td align="left">GND</td></tr>
+      <tr><td port="gnd2" align="left">gnd2</td><td align="left">GND</td></tr>
+      <tr><td port="gpio4" align="left">gpio4</td><td align="left">GPIO4</td></tr>
+    </table>
+  >];
+
+  relay:v_plus:e  -> esp32:vin:w   [label="supply"];
+  relay:v_minus:e -> esp32:gnd1:w  [label="supply"];
+  relay:com:e     -> esp32:gnd2:w  [label="button contact"];
+  relay:no:e      -> esp32:gpio4:w [label="button contact"];
+}
