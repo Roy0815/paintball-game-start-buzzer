@@ -31,6 +31,8 @@ setup needs to be done again.
 
 <esp-web-install-button manifest="../firmware/manifest-erase.json"></esp-web-install-button>
 
+:::: details Other Browser Variants (Reset / Update)
+
 ### Firmware Reset
 
 Writes firmware and filesystem fresh. The Bluetooth pairing is preserved. In
@@ -57,7 +59,9 @@ installing"**.
 
 <esp-web-install-button manifest="../firmware/manifest-update.json"></esp-web-install-button>
 
-## Flashing manually with esptool (Advanced)
+::::
+
+::: details Flashing manually with esptool (Advanced)
 
 Without browser support (e.g. Firefox/Safari), the classic route also
 works, using [esptool](https://docs.espressif.com/projects/esptool/en/latest/esp32/):
@@ -135,12 +139,16 @@ python -m esptool --chip esp32 --port <PORT> --baud 460800 write_flash 0x1000 bo
 If the write aborts with `Failed to connect` or partway through, a lower
 `--baud` value (e.g. `115200`) often helps.
 
-## Alternative: PlatformIO/CLI
+:::
+
+::: details Alternative: PlatformIO/CLI
 
 If you'd rather work with PlatformIO (e.g. for your own firmware changes),
 the CLI-based approach is described under [Development](/en/development).
 
-## Where does the firmware here come from?
+:::
+
+::: details Technical Background: Firmware Origin
 
 Whenever a push to `main` changes firmware-relevant files,
 [`build-firmware.yml`](https://github.com/Roy0815/paintball-game-start-buzzer/blob/main/.github/workflows/build-firmware.yml)
@@ -151,3 +159,5 @@ This page (built by
 fetches its assets from that same release instead of building them itself.
 The firmware files aren't checked into the repository. The version shown
 corresponds to the short git commit hash it was built from.
+
+:::

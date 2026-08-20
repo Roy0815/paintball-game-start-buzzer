@@ -83,7 +83,7 @@ On every later start of the ESP32, it's usually enough for the speaker to
 just be turned on. If it doesn't work for a particular speaker, try pairing
 mode again.
 
-## Getting back into setup mode
+::: details Getting back into setup mode (later)
 
 To later change the speaker name, MP3s, or mapping: restart the board via
 the **EN** button (**"RESTART"** on the 3D-printed case) or by
@@ -92,3 +92,5 @@ for 5 seconds. While this light is blinking, press the **BOOT** button
 (**"SETUP"** on the 3D-printed case). The LED should then turn solid blue,
 and setup mode is active again. Details:
 [Development → Getting back into setup mode](/en/development#getting-back-into-setup-mode).
+
+:::

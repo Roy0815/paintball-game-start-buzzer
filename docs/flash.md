@@ -31,6 +31,8 @@ das AP-Setup muss erneut durchgeführt werden.
 
 <esp-web-install-button manifest="firmware/manifest-erase.json"></esp-web-install-button>
 
+:::: details Weitere Browser-Varianten (Reset / Update)
+
 ### Firmware Reset
 
 Schreibt Firmware und Dateisystem neu. Die Bluetooth-Kopplung bleibt
@@ -57,7 +59,9 @@ Im folgenden Dialog **"Erase device before installing" nicht anhaken**.
 
 <esp-web-install-button manifest="firmware/manifest-update.json"></esp-web-install-button>
 
-## Manuell per esptool flashen (Fortgeschrittene)
+::::
+
+::: details Manuell per esptool (Fortgeschrittene)
 
 Ohne Browser-Unterstützung (z.B. Firefox/Safari) geht es auch klassisch mit
 [esptool](https://docs.espressif.com/projects/esptool/en/latest/esp32/):
@@ -136,12 +140,16 @@ python -m esptool --chip esp32 --port <PORT> --baud 460800 write_flash 0x1000 bo
 Bricht der Schreibvorgang mit `Failed to connect` oder mittendrin ab, hilft
 oft ein niedrigerer Wert für `--baud` (z.B. `115200`).
 
-## Alternative: PlatformIO/CLI
+:::
+
+::: details Alternative: PlatformIO/CLI
 
 Wer lieber mit PlatformIO arbeitet (z.B. für eigene Firmware-Änderungen),
 findet die CLI-basierte Variante unter [Entwicklung](/entwicklung).
 
-## Woher kommt die Firmware hier?
+:::
+
+::: details Technischer Hintergrund: Firmware-Herkunft
 
 Bei jedem Push auf `main`, der Firmware-relevante Dateien ändert, baut
 [`build-firmware.yml`](https://github.com/Roy0815/paintball-game-start-buzzer/blob/main/.github/workflows/build-firmware.yml)
@@ -152,3 +160,5 @@ Diese Seite (gebaut von
 lädt sich die Assets von genau diesem Release, statt selbst neu zu bauen.
 Die Firmware-Dateien werden nicht im Repository versioniert. Die angezeigte
 Version entspricht dem kurzen Git-Commit-Hash, aus dem gebaut wurde.
+
+:::

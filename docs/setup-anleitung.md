@@ -85,7 +85,7 @@ Bei jedem weiteren Start des ESP32 reicht es dann normalerweise, wenn die
 Box eingeschaltet ist. Sollte es bei einer Box nicht klappen, bitte erneut
 mit dem Kopplungsmodus versuchen.
 
-## Zurück in den Setup-Modus
+::: details Zurück in den Setup-Modus (später)
 
 Um Boxname, MP3s oder Mapping später zu ändern: Board per **EN**-Taster
 (**"RESTART"** auf dem 3D-gedruckten Case) oder durch Unterbrechen der
@@ -94,3 +94,5 @@ ein blaues Licht. Während dieses Licht blinkt, den **BOOT**-Taster
 (**"SETUP"** auf dem 3D-gedruckten Case) drücken. Die LED sollte danach
 durchgehend blau leuchten, der Setup-Modus ist dann erneut aktiv. Details:
 [Entwicklung → Rückkehr in den Setup-Modus](/entwicklung#ruckkehr-in-den-setup-modus).
+
+:::

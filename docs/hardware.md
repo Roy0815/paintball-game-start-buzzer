@@ -1,5 +1,12 @@
 # Hardware & Verkabelung
 
+## So geht's los
+
+1. [Teile besorgen & verkabeln](#komponenten) (diese Seite)
+2. [Firmware flashen](/flash)
+3. [Einrichten](/setup-anleitung)
+4. Box startet automatisch im Bluetooth-Betrieb
+
 ## Komponenten
 
 - **ELEGOO ESP32-WROOM-32 DevKit** (ASIN B0D8T7LZF2), 4 MB Flash
@@ -12,7 +19,7 @@
 - Bluetooth-Lautsprecher/-Box mit A2DP-Unterstützung (klassisches Bluetooth,
   kein BLE)
 
-## Teileliste
+::: details Einkaufsliste
 
 ### Einkaufsliste
 
@@ -38,39 +45,28 @@ Case aus dem 3D-Drucker für stabilen Transport und einfache Bedienung:
 
 https://www.printables.com/model/1812252
 
+:::
+
 ## Verkabelung (vereinfacht)
 
 Das folgende Diagramm zeigt nur die extern zu verkabelnden Bauteile.
 BOOT-Taster und LED sitzen bereits onboard auf dem ESP32-Board und brauchen
 keine eigene Verkabelung (Details dazu in der Pin-Tabelle unten):
 
-```mermaid
-C4Container
-    title Verkabelung: RF-Relais-Modul und ESP32
-    UpdateLayoutConfig($c4ShapeInRow="1", $c4BoundaryInRow="2")
-
-    Container_Boundary(relais, "Relais") {
-        Component(v+, "V+", "", "")
-        Component(v-, "V-", "", "")
-        Component(com, "COM", "", "")
-        Component(no, "NO", "", "")
-    }
-
-    Container_Boundary(esp, "ESP32") {
-        Component(vin, "VIN", "", "")
-        Component(gnd, "GND", "", "")
-        Component(gnd2, "GND", "", "")
-        Component(gpio4, "GPIO4", "D4", "")
-    }
-
-    Rel(v+, vin, "Versorgung", "")
-    Rel(v-, gnd, "Versorgung", "")
-    Rel(com, gnd2, "Taster-Kontakt", "")
-    Rel(no, gpio4, "Taster-Kontakt", "")
-```
+<Dot srcFile="/diagrams/relais-esp32.dot" />
 
 Jede Pin-Verbindung ist eine eigene, einzeln beschriftete Beziehung
 zwischen den beiden Bauteil-Boxen.
+
+COM/NO ist ein potentialfreier Kontakt, der `GPIO4` beim Tastendruck auf Low
+zieht (Details dazu im ausklappbaren Abschnitt weiter unten).
+
+<div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+  <img src="/cable-connections-raw.jpg" alt="Verkabelung im unverbauten Zustand" style="flex: 1 1 300px; max-width: 100%;">
+  <img src="/assembled-in-box.jpg" alt="Fertig zusammengebaut im Gehäuse" style="flex: 1 1 300px; max-width: 100%;">
+</div>
+
+::: details Warum funktioniert die Verkabelung so?
 
 COM und NO gehören zum selben potentialfreien Kontakt: Löst die Fernbedienung
 aus, schließt der Kontakt kurz COM gegen NO. Das zieht `GPIO4` (dank
@@ -78,13 +74,9 @@ internem `INPUT_PULLUP`) für die Dauer des Tastendrucks auf Low. Die
 Versorgungsleitungen (V+/V-) sind ein komplett getrennter Stromkreis für
 das Relais-Modul selbst.
 
-<div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-  <img src="/cable-connections-raw.jpg" alt="Verkabelung im unverbauten Zustand" style="flex: 1 1 300px; max-width: 100%;">
-  <img src="/assembled-in-box.jpg" alt="Fertig zusammengebaut im Gehäuse" style="flex: 1 1 300px; max-width: 100%;">
-</div>
+:::
 
-<details>
-<summary><strong>Erweitert: Pin-Tabelle</strong></summary>
+::: details Vollständige Pin-Tabelle
 
 | ESP32-Pin   | Bauteil                                     | Funktion                                                                                                                                                                                                                                                                   |
 | ----------- | ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -95,9 +87,9 @@ das Relais-Modul selbst.
 | `GPIO0`     | BOOT-Taster (onboard)                       | kein externes Bauteil, innerhalb 5s **nach** dem Boot drücken = Setup-Modus (siehe [Entwicklung](/entwicklung#ruckkehr-in-den-setup-modus), **nicht** während Reset/EN gedrückt halten)                                                                                    |
 | `GPIO2`     | Onboard-LED (blau)                          | kein externes Bauteil, blinkt während des 5s-Zeitfensters, leuchtet danach durchgehend im AP-Setup-Modus, aus im Bluetooth-Betrieb. Verifiziert am ELEGOO-Board (ASIN B0D8T7LZF2); die separate rote LED ist fest mit der Stromversorgung verdrahtet und nicht ansteuerbar |
 
-</details>
+:::
 
-## Bekannte Fallstricke
+::: details Bekannte Fallstricke
 
 - **3,3 V, nicht 5 V-tolerant:** Die Logik-Pins des ESP32 vertragen dauerhaft
   nur 3,3 V. Ein direkt an einen GPIO angeschlossener 5V-Signalpegel kann den
@@ -129,6 +121,8 @@ das Relais-Modul selbst.
   starten. Der BOOT-Taster darf für den Rücksprung in den Setup-Modus daher
   nur **nach** einem abgeschlossenen Boot gedrückt werden, siehe
   [Entwicklung](/entwicklung#ruckkehr-in-den-setup-modus).
+
+:::
 
 ## Stromversorgung
 
